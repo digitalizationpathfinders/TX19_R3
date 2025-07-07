@@ -626,6 +626,17 @@ label, fieldset, legend {
   margin:0;
   
 }
+
+legend a {
+  padding-left:16px;
+  vertical-align:middle;
+  display:inline-flex;
+  text-decoration: none;
+}
+
+legend a:hover {
+  text-decoration:none;
+}
 /* label:not([required]){
  
 } */
@@ -762,14 +773,11 @@ textarea {
 }
 
 .input-wrapper {
-
   display:flex;
   box-sizing: border-box !important;
   max-width:250px;
   align-items:stretch;
-
 }
-
 
 .input-wrapper .prefix {
   border-right:1px solid #616161;
@@ -778,16 +786,23 @@ textarea {
   box-sizing: content-box !important;
   align-items: stretch;
   display: flex;
-
-
 }
-.prefix span 
+
+.input-wrapper .suffix {
+  border-left:1px solid #616161;
+  color:#989DA6;
+  padding:0px 8px;
+  box-sizing: content-box !important;
+  align-items: stretch;
+  display: flex;
+}
+
+.prefix span, .suffix span 
 {
   font-size:20px;
   margin:0px !important;
   vertical-align: middle !important;
   align-self:center;
-
 }
 
 .input-wrapper input {
@@ -795,6 +810,8 @@ textarea {
   border:0;
   box-sizing: border-box !important;
 }
+
+
 
 .subfield-wrapper input[type="text"] {
   width:100%;

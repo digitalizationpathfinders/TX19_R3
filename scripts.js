@@ -64,8 +64,6 @@ class Stepper {
             element.innerHTML = isCompleted ? `<span class="material-icons">check</span>` : `${index}`;
         }
     }
-    
-    
 
     observeStepContentChanges() {
         const observer = new MutationObserver((mutations) => {
@@ -184,28 +182,27 @@ class Step1Handler {
 }
 class Step2Handler {
     constructor(){
-        this.deceasedtpPanelContainer = document.getElementById("deceasedinfo-panel-container");
-        this.deceasedIndivid = DataManager.getData("deceasedInfo") || null;
+        this.corporationContainer = document.getElementById("corporation-panel-container");
+        this.account = DataManager.getData("accountInfo") || null;
 
-        this.populateDeceasedPanel();
+        this.populateAccountPanel();
         
     }
-    populateDeceasedPanel(){
+    populateAccountPanel(){
 
         var shownData = { 
-            name: this.deceasedIndivid.name, 
-            sin: this.deceasedIndivid.sin,
-            dateOfDeath: this.deceasedIndivid.dateOfDeath
+            name: this.account.name, 
+            businessNumber: this.account.businessNumber
         };
 
         new PanelObj({
-            container: this.deceasedtpPanelContainer,
-            title: "Deceased individual’s information on file",
+            container: this.corporationContainer,
+            title: "Corporation information on file",
             data: shownData,
             editButton: false, 
             editIndex: null,
             reviewPanel: false,
-            labels: ["Name of deceased", "Social insurance number (SIN)", "Date of death"]
+            labels: ["Business name", "Business number"]
         })
     
     }
@@ -522,7 +519,7 @@ class Step5Handler {
         this.submitBtn.addEventListener('click', () => {
             sessionStorage.setItem("navigatingToConfirmation", "true");
             // Store necessary data in sessionStorage to retrieve on confirmation page
-            sessionStorage.setItem("deceasedInfo", JSON.stringify(DataManager.getData("deceasedInfo")));
+            sessionStorage.setItem("accountInfo", JSON.stringify(DataManager.getData("accountInfo")));
             sessionStorage.setItem("legalRepresentative", JSON.stringify(DataManager.getData("legalRepresentative")));
             sessionStorage.setItem("racUserName", JSON.stringify(DataManager.getData("racUserName")));
         
@@ -540,7 +537,7 @@ class Step5Handler {
             { stepNum: 3, title: "Representative's information", storageKey: "stepData_3" },
             { stepNum: 4, title: "Supporting documentation", storageKey: "stepData_4" },
         ];
-        const deceasedInfo = DataManager.getData("deceasedInfo") || {};
+        const accountInfo = DataManager.getData("accountInfo") || {};
         steps.forEach(({ stepNum, title, storageKey, labels }) => {
             let data = DataManager.getData(storageKey);
             if (!data) return; // Skip empty steps
@@ -552,7 +549,7 @@ class Step5Handler {
 
            if (stepNum === 2) {
             //delete deceasedInfo.address; // Remove address
-            data = { ...deceasedInfo, ...data }; // Merge deceased info first, then stepData_2 to allow stepData_2 to override if needed
+            data = { ...accountInfo, ...data }; // Merge deceased info first, then stepData_2 to allow stepData_2 to override if needed
            }
            if (stepNum === 3) {
                let legalReps = DataManager.getData("legalReps") || [];
@@ -573,7 +570,7 @@ class Step5Handler {
                     formattedData[`Legal representative ${idx} name`] = rep.name || "N/A";
     
                     if(index === 0) {
-                        formattedData[`Legal representative ${idx} mailing address`] = deceasedInfo.address;
+                        formattedData[`Legal representative ${idx} mailing address`] = accountInfo.address;
                     }
     
                     formattedData[`Legal representative ${idx} role`] = rep.role || "N/A";
@@ -1152,14 +1149,14 @@ document.addEventListener('DOMContentLoaded', () => {
         console.log("Loaded Task Data:", taskData);
 
         // Store data for use in other scripts
-        DataManager.saveData("deceasedInfo", taskData.deceasedInfo);
+        DataManager.saveData("accountInfo", taskData.accountInfo);
         DataManager.saveData("userLevel", taskData.userLevel);
 
-        if (taskData.userLevel === 3 && taskData.deceasedInfo?.address) {
+        if (taskData.userLevel === 3 && taskData.accountInfo?.address) {
             DataManager.saveData("legalReps", [
                 {
                     name: taskData.racUserName,
-                    address: taskData.deceasedInfo.address,
+                    address: taskData.accountInfo.address,
                     role: null, // Default or populate as needed
                     phone: null
                 }
@@ -1174,8 +1171,8 @@ document.addEventListener('DOMContentLoaded', () => {
             document.getElementById("task-rep-name").textContent = "REPRESENTATIVE NAME";
         }
 
-        if (taskData.deceasedInfo && taskData.deceasedInfo.name) {
-            document.getElementById("task-accountuser-name").textContent = taskData.deceasedInfo.name;
+        if (taskData.accountInfo && taskData.accountInfo.name) {
+            document.getElementById("task-accountuser-name").textContent = taskData.accountInfo.name;
         }
     }
 

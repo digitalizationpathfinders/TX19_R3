@@ -41,7 +41,7 @@
         </header>
         <main class="stepper">
             <h1>TX19 - Asking for a clearance certificate</h1>
-            <section class="step active" id="step-0">
+            <section class="step" id="step-0">
                 <div class="step-header">
                     <div class="step-number">
                         <span class="step-icon material-icons">check</span>
@@ -197,12 +197,51 @@
                             <button class="btn btn-primary next-button" type="button">Next</button>
                             <button class="hidden btn btn-primary out-button" type="button" onclick="location.href='chooser.html'">Return to Overview</button>
                         </form>
-                        <div class="lightbox-container" id="s1q1-lightbox">
+                  
+                    </div>
+                </div>
+            </section>
+
+            <section class="step" id="step-2">
+                <div class="step-header">
+                    <div class="step-number">
+                        <span class="step-icon material-icons">check</span>
+                    </div>
+                    <h2>Corporation information</h2>
+                </div>
+                <div class="step-content">
+                    <div class="container">
+                        <form id="step-2-form">
+                            <div class="required">Fields marked with asterisk (<span class="ast">*</span>) are required.</div>
+                            <div id="corporation-panel-container">                         
+                            </div>
+                            <fieldset id="s2q1-fieldset" data-radio-group>
+                                <legend class="required-label"> Are all directors Canadian residents? 
+                                    <a data-toggleLB="s2q1-lightbox">
+                                        <span class="material-icons">
+                                        help
+                                        </span>
+                                    </a>
+                                </legend>
+                                <div class="group">
+                                    <input type="radio" id="s2q1-op1" name="s2q1" value="Yes" data-toggle="s2q2-fieldset">
+                                    <label for="s2q1-op1"></label>
+                                </div>
+                                <div class="group">
+                                    <input type="radio" id="s2q1-op2" name="s2q1" value="No" data-toggle="s2q2-fieldset">
+                                    <label for="s2q1-op2"></label>
+                                </div>
+                            </fieldset>
+                           
+                            <button class="btn btn-secondary back-button" type="button">Back</button>
+                            <button class="btn btn-primary next-button" type="button">Next</button>
+                        </form>
+                        <div class="lightbox-container" id="s2q1-lightbox">
                             <div class="lightbox">
                                 <div class="header">
                                     <div>
                                         <span class="material-icons">help</span>
-                                        <h3>Have all the required tax returns been filed?</h3>
+                                        <h3>Are all directors Canadian residents?</h3>
                                     </div>
                                     
                                     <button data-closebtn class="btn-tertiary" type="button">
@@ -224,115 +263,6 @@
                                 </div>
                             </div>
                         </div>
-                    </div>
-                </div>
-            </section>
-
-            <section class="step" id="step-2">
-                <div class="step-header">
-                    <div class="step-number">
-                        <span class="step-icon material-icons">check</span>
-                    </div>
-                    <h2>Deceased individual’s information</h2>
-                </div>
-                <div class="step-content">
-                    <div class="container">
-                        <form id="step-2-form">
-                            <div class="required">Fields marked with asterisk (<span class="ast">*</span>) are required.</div>
-                            <div id="deceasedinfo-panel-container">                         
-                            </div>
-                            <fieldset id="s2q1-fieldset" data-radio-group>
-                                <legend class="required-label"> Did the deceased individual have a will?</legend>
-                                <div class="group">
-                                    <input type="radio" id="s2q1-op1" name="s2q1" value="Yes" data-toggle="s2q2-fieldset">
-                                    <label for="s2q1-op1"></label>
-                                </div>
-                                <div class="group">
-                                    <input type="radio" id="s2q1-op2" name="s2q1" value="No" data-toggle="s2q2-fieldset">
-                                    <label for="s2q1-op2"></label>
-                                </div>
-                            </fieldset>
-                            <fieldset id="s2q2-fieldset" class="hidden" data-radio-group>
-                                <legend class="required-label"> What is the estimated total value of the deceased individual's assets?<br><span class="sub-label">Assets may include bank accounts, investment accounts, shares, real estate, etc.</span></legend>
-                                <div class="group">
-                                    <input type="radio" id="s2q2-op1" name="s2q2" value="$0 - $99,999" data-toggle="s2q3-fieldset">
-                                    <label for="s2q2-op1"></label>
-                                </div>
-                                <div class="group">
-                                    <input type="radio" id="s2q2-op2" name="s2q2" value="$100,000 - $499,999" data-toggle="s2q3-fieldset">
-                                    <label for="s2q2-op2"></label>
-                                </div>
-                                <div class="group">
-                                    <input type="radio" id="s2q2-op3" name="s2q2" value="$500, 000 - $999,999" data-toggle="s2q3-fieldset">
-                                    <label for="s2q2-op3"></label>
-                                </div>
-                                <div class="group">
-                                    <input type="radio" id="s2q2-op4" name="s2q2" value="$1,000,000 or more" data-toggle="s2q3-fieldset">
-                                    <label for="s2q2-op4"></label>
-                                </div>
-                            </fieldset>
-                            <fieldset id="s2q3-fieldset" class="hidden" data-radio-group required>
-                                <legend class="required-label"> Is there any real estate other than the primary residence?<br><span class="sub-label">Real estate may include cottages, land, rental properties, etc.</span></legend>
-                                <div class="group">
-                                    <input type="radio" id="s2q3-op1" name="s2q3" value="Yes" data-toggle="s2q4-fieldset">
-                                    <label for="s2q3-op1"></label>
-                                </div>
-                                <div class="group">
-                                    <input type="radio" id="s2q3-op2" name="s2q3" value="No" data-toggle="s2q5-fieldset">
-                                    <label for="s2q3-op2"></label>
-                                </div>
-                            </fieldset>
-                            <fieldset id="s2q4-fieldset" class="hidden" data-radio-group required>
-                                <legend class="required-label"> What is the estimated total value of the deceased individual's real estate (including the primary residence)?</legend>
-                                <div class="group">
-                                    <input type="radio" id="s2q4-op1" name="s2q4" value="$0 - $99,999" data-toggle="s2q5-fieldset">
-                                    <label for="s2q4-op1"></label>
-                                </div>
-                                <div class="group">
-                                    <input type="radio" id="s2q4-op2" name="s2q4" value="$100,000 - $499,999" data-toggle="s2q5-fieldset">
-                                    <label for="s2q4-op2"></label>
-                                </div>
-                                <div class="group">
-                                    <input type="radio" id="s2q4-op3" name="s2q4" value="$500, 000 - $999,999" data-toggle="s2q5-fieldset">
-                                    <label for="s2q4-op3"></label>
-                                </div>
-                                <div class="group">
-                                    <input type="radio" id="s2q4-op4" name="s2q4" value="$1,000,000 or more" data-toggle="s2q5-fieldset">
-                                    <label for="s2q4-op4"></label>
-                                </div>
-                            </fieldset>
-                            <fieldset id="s2q5-fieldset" class="hidden" data-radio-group required>
-                                <legend class="required-label"> Are all beneficiaries Canadian residents?</legend>
-                                <div class="group">
-                                    <input type="radio" id="s2q5-op1" name="s2q5" value="Yes" data-toggle="s2q6-fieldset">
-                                    <label for="s2q5-op1"></label>
-                                </div>
-                                <div class="group">
-                                    <input type="radio" id="s2q5-op2" name="s2q5" value="No" data-toggle="s2q6-fieldset">
-                                    <label for="s2q5-op2"></label>
-                                </div>
-                            </fieldset>
-                            <fieldset id="s2q6-fieldset" class="hidden" data-radio-group required>
-                                <legend class="required-label"> Is there an estate trust related to the deceased individual?</legend>
-                                <div class="group">
-                                    <input type="radio" id="s2q6-op1" name="s2q6" value="Yes" data-toggle="s2q7-fieldset">
-                                    <label for="s2q6-op1"></label>
-                                </div>
-                                <div class="group">
-                                    <input type="radio" id="s2q6-op2" name="s2q6" value="No">
-                                    <label for="s2q6-op2"></label>
-                                </div>
-                            </fieldset>
-
-                            <fieldset id="s2q7-fieldset" class="hidden" required>
-                                <legend class="required-label"> Estate trust account number<br></legend>
-                               
-                                <input class="half-width" type="text" id="s2q7-field" name="s2q7">
-                                
-                            </fieldset>
-                            <button class="btn btn-secondary back-button" type="button">Back</button>
-                            <button class="btn btn-primary next-button" type="button">Next</button>
-                        </form>
                     </div>
                 </div>
             </section>
@@ -401,7 +331,7 @@
                             
                             </fieldset>
                             <fieldset id="s3q1-fieldset" data-radio-group>
-                                <legend class="required-label"> Are there any other legal representatives associated to this account?<br><span class="sub-label">For example, a co-executor, co-liquidator, or co-administrator, etc.   </span></legend>
+                                <legend class="required-label"> Are there any other legal representatives associated to this account?<br><span class="sub-label">For example, a co-director, co-owner, etc.   </span></legend>
                                 <div class="group">
                                     <input type="radio" id="s3q1-op1" name="s3q1" value="Yes" data-toggle="s3q2-fieldset">
                                     <label for="s3q1-op1"></label>
@@ -498,12 +428,12 @@
                 </div>
             </section>
 
-            <section class="step" id="step-4">
+            <section class="step active" id="step-4">
                 <div class="step-header">
                     <div class="step-number">
                         <span class="step-icon material-icons">check</span>
                     </div>
-                    <h2>Supporting documents</h2>
+                    <h2>Type of clearance</h2>
                 </div>
                 <div class="step-content">
                     <div class="container">
@@ -511,82 +441,47 @@
                     <form id="step-4-form">
                         <div class="required">Fields marked with asterisk (<span class="ast">*</span>) are required.</div>
                         <br>
-                        <div>
-                            <strong>Documents you need to provide:</strong>
-                            <ul>
-                                <li>Taxpayer's will (if no will exists, an official document that names the legal representative)</li>
-                                <li>List of assets</li>
-                                <li>Statement of distribution of assets</li>
-                            </ul>
-                        </div>
                         
                        
                         <fieldset id="s4q1-fieldset" required>
                             <legend class="required-label">
-                                Have you already submitted all the documents above?
+                                What type of clearance are requesting?
                             </legend>
                             <div class="group">
-                                <input type="radio" id="s4q1-op1" name="s4q1" value="Yes" data-toggle="s4q2-fieldset">
+                                <input type="radio" id="s4q1-op1" name="s4q1" value="Partial distribution - T2 corporation income tax return" data-toggle="s4q2-fieldset,s4q3-fieldset">
                                 <label for="s4q1-op1"></label>
                             </div>
                             <div class="group">
-                                <input type="radio" id="s4q1-op2" name="s4q1" value="No, but I have submitted at least one" data-toggle="s4q2-fieldset">
+                                <input type="radio" id="s4q1-op2" name="s4q1" value="Final distribution - T2 corporation income tax return" data-toggle="s4q2-fieldset,s4q3-fieldset">
                                 <label for="s4q1-op2"></label>
                             </div>
-                            <div class="group">
-                                <input type="radio" id="s4q1-op3" name="s4q1" value="No, I have not submitted any" data-toggle="s4q4-fieldset">
-                                <label for="s4q1-op3"></label>
-                            </div>
+                            
                         </fieldset>
+                        
                         <fieldset class="hidden" id="s4q2-fieldset" required>
-                            <legend class="required-label">
-                                How were the documents submitted?</legend>
-                            <div class="group">
-                                <input type="radio" id="s4q2-op1" name="s4q2" value="Mail or fax" data-toggle="s4q3-fieldset">
-                                <label for="s4q2-op1"></label>
-                            </div>
-                            <div class="group">
-                                <input type="radio" id="s4q2-op2" name="s4q2" value="Electronically" data-toggle="s4q3-fieldset,s4q4-fieldset">
-                                <label for="s4q2-op2"></label>
-                            </div>
-                            <div class="group">
-                                <input type="radio" id="s4q2-op3" name="s4q2" value="Both" data-toggle="s4q3-fieldset,s4q4-fieldset">
-                                <label for="s4q2-op3"></label>
+                            <label for="s4q2-field" class="required-label">Fiscal end date of the last filed return<br>
+                            </label>
+                           
+                            <div class="input-wrapper ml-16px">
+                                <input class="" type="text" id="s4q2-field" name="s4q2" placeholder="YYYY-MM-DD">
+                                <div class="suffix">
+                                    <span class="material-icons">calendar_month</span>
+                                    <div class="datepicker-popup hidden"></div>
+                                    
+                               </div>
                             </div>
                         </fieldset>
                         <fieldset class="hidden" id="s4q3-fieldset">
-                            <label for="s4q3-field" class="ml-16px">Provide the reference/case number(s) associated to your submission<br>
-                                <span class="optional">Separate reference/case numbers using a comma.</span>
+                            <label for="s4q3-field" class="required-label">Wind up date of the last filed return<br>
                             </label>
-                            <input class="half-width" type="text" id="s4q3-field" name="s4q3">
-                        </fieldset>
-                        <fieldset class="ml-16px hidden" id="s4q4-fieldset" required>
-                            <legend class="required-label" for="s4q3-field">Upload documents to support your request</legend>
-                            
-                            <table id="tb-upload-doc" class="table dynamic-table" cellpadding="0" cellspacing="0" required>
-                                <thead>
-                                    <tr>
-                                        <th>File name</th>
-                                        <th>Description</th>
-                                        <th>File size</th>
-                                        <th>Actions</th>
-                                    </tr>
-                                </thead>
-                                <tbody data-placeholder="You have not uploaded any documents.">
-                                </tbody>
-                            </table>
-                            <div class="buttons">
-                                <button class="btn-secondary close" type="button" data-togglelb="uploaddoc-lightbox">
-                                <span class="material-icons">
-                                add
-                                </span>
-                                Attach document</button>
-                            </div>
-                            <div id="uploadedfile-info" style="text-align:right;">
-                                Total size: <span id="uploadedfiles-size"></span><br>
-                                Maximum total file upload size is 500 MB
+                           
+                            <div class="input-wrapper ml-16px">
+                                <input class="" type="text" id="s4q3-field" name="s4q3">
+                                <div class="suffix"><span class="material-icons">calendar_month</span></div>
                             </div>
                         </fieldset>
+                        <br>
+                      
                     </form>
                     </div>
                     <div class="lightbox-container" id="uploaddoc-lightbox">
@@ -633,7 +528,144 @@
                 </div>
             </section>
 
+
             <section class="step" id="step-5">
+                <div class="step-header">
+                    <div class="step-number">
+                        <span class="step-icon material-icons">check</span>
+                    </div>
+                    <h2>Supporting documents</h2>
+                </div>
+                <div class="step-content">
+                    <div class="container">
+
+                    <form id="step-5-form">
+                        <div class="required">Fields marked with asterisk (<span class="ast">*</span>) are required.</div>
+                        <br>
+                        <div>
+                            <strong>Documents you need to provide:</strong>
+                            <ul>
+                                <li>A copy of the Director’s/Shareholder’s resolution authorizing the dissolution.</li>
+                                <li>A copy of the Letter of Consent to dissolve or the Certificate of Dissolution (if available).</li>
+                                <li>Documents naming the legal representative </li>
+                                <li>Statement and plan of distribution of assets at the date of wind-up.</li>
+                            </ul>
+                        </div>
+                        
+                       
+                        <fieldset id="s5q1-fieldset" required>
+                            <legend class="required-label">
+                                Have you already submitted all the documents above?
+                            </legend>
+                            <div class="group">
+                                <input type="radio" id="s5q1-op1" name="s5q1" value="Yes" data-toggle="s5q2-fieldset">
+                                <label for="s5q1-op1"></label>
+                            </div>
+                            <div class="group">
+                                <input type="radio" id="s5q1-op2" name="s5q1" value="No, but I have submitted at least one" data-toggle="s5q2-fieldset">
+                                <label for="s5q1-op2"></label>
+                            </div>
+                            <div class="group">
+                                <input type="radio" id="s5q1-op3" name="s5q1" value="No, I have not submitted any" data-toggle="s5q4-fieldset">
+                                <label for="s5q1-op3"></label>
+                            </div>
+                        </fieldset>
+                        <fieldset class="hidden" id="s5q2-fieldset" required>
+                            <legend class="required-label">
+                                How were the documents submitted?</legend>
+                            <div class="group">
+                                <input type="radio" id="s5q2-op1" name="s5q2" value="Mail or fax" data-toggle="s5q3-fieldset">
+                                <label for="s5q2-op1"></label>
+                            </div>
+                            <div class="group">
+                                <input type="radio" id="s5q2-op2" name="s5q2" value="Electronically" data-toggle="s5q3-fieldset,s5q4-fieldset">
+                                <label for="s5q2-op2"></label>
+                            </div>
+                            <div class="group">
+                                <input type="radio" id="s5q2-op3" name="s5q2" value="Both" data-toggle="s5q3-fieldset,s5q4-fieldset">
+                                <label for="s5q2-op3"></label>
+                            </div>
+                        </fieldset>
+                        <fieldset class="hidden" id="s5q3-fieldset">
+                            <label for="s5q3-field" class="ml-16px">Provide the reference/case number(s) associated to your submission<br>
+                                <span class="optional">Separate reference/case numbers using a comma.</span>
+                            </label>
+                            <input class="half-width" type="text" id="s5q3-field" name="s5q3">
+                        </fieldset>
+                        <fieldset class="ml-16px hidden" id="s5q4-fieldset" required>
+                            <legend class="required-label" for="s5q3-field">Upload documents to support your request</legend>
+                            
+                            <table id="tb-upload-doc" class="table dynamic-table" cellpadding="0" cellspacing="0" required>
+                                <thead>
+                                    <tr>
+                                        <th>File name</th>
+                                        <th>Description</th>
+                                        <th>File size</th>
+                                        <th>Actions</th>
+                                    </tr>
+                                </thead>
+                                <tbody data-placeholder="You have not uploaded any documents.">
+                                </tbody>
+                            </table>
+                            <div class="buttons">
+                                <button class="btn-secondary close" type="button" data-togglelb="uploaddoc-lightbox">
+                                <span class="material-icons">
+                                add
+                                </span>
+                                Attach document</button>
+                            </div>
+                            <div id="uploadedfile-info" style="text-align:right;">
+                                Total size: <span id="uploadedfiles-size"></span><br>
+                                Maximum total file upload size is 500 MB
+                            </div>
+                        </fieldset>
+                    </form>
+                    </div>
+                    <div class="lightbox-container" id="uploaddoc-lightbox">
+                        <div class="lightbox">
+                            <div class="header">
+                                <h3>Upload document</h3>
+                                <button class="btn-tertiary" type="button" data-closebtn>
+                                <span class="material-icons">clear</span></button>
+                            </div>
+                            <div class="lightbox-content">
+                                <form id="s5-doc-form">
+                                    <div class="required">Fields marked with asterisk (<span class="ast">*</span>) are required.</div>
+                                    <br>
+                                    <label for="s5lb-upload" class="required-label">Upload your document</label>
+                                    <span class="ml-16px">Allowable file types: .pdf, .doc, .docx, .xls, .xlsx, .rtf, .txt, .jpg, .jpeg, .tiff, .tif, .xps
+                                    </span><br><button id="s5-browsebtn" type="button" class="ml-16px btn-secondary">Browse</button>
+                                    <span class="fileName" id="s5-filename-display" data-formelement data-placeholder="No file chosen.">No file chosen.</span>
+
+                                    <input type="hidden" id="s5-filename" name="s5-filename">
+                                    
+                                    
+                                    <label for="s5lb-descfield" class="required-label">Provide a brief description of your document (maximum 150 characters).</label>
+                                    <input type="text" id="s5-desc" name="s5-desc" maxlength="150" required>
+                                    <input type="hidden" id="s5-size" name="s5-size">
+                                </form>
+                                <div id="s5-browsewind" class="browse-window hidden">
+                                    <div class="browse-window-header">Browse</div>
+                                        <ul class="file-list">
+                                            <li id="contract-doc" class="file-item"><span class="material-icons file-icon">insert_drive_file</span>WillTestament.pdf</li>
+                                            <li id="detailedassets-doc"  class="file-item"><span class="material-icons file-icon">insert_drive_file</span>DetailedAssetsList.docx</li>
+                                            <li id="assetdistribution-doc" class="file-item"><span class="material-icons file-icon">insert_drive_file</span>AssetDistribution_List.docx</li>
+                                            <li id="mortgage-doc" class="file-item"><span class="material-icons file-icon">insert_drive_file</span>MortgageStatement.docx</li>
+                                        </ul>
+                                </div>
+                            </div>
+                            <div class="buttons">
+                                <button class="btn-primary" type="button" data-submit>Upload document</button>
+                                <button class="btn-tertiary" type="button" data-closebtn>Cancel</button>
+                            </div>
+                        </div>
+                    </div>
+                    <button class="btn btn-secondary back-button" type="button">Back</button>
+                    <button class="btn btn-primary next-button" type="button">Next</button>
+                </div>
+            </section>
+
+            <section class="step" id="step-6">
                 <div class="step-header">
                     <div class="step-number">
                         <span class="step-icon material-icons">check</span>
