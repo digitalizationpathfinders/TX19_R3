@@ -8,7 +8,7 @@
         <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     </head>
     <body>
-          <header class="header">
+       <header class="header">
             <div class="header-content">
                 <div class="brand">
                     <img src="https://www.canada.ca/etc/designs/canada/wet-boew/assets/sig-blk-en.svg" alt="Government of Canada">
@@ -24,7 +24,7 @@
                     </div>
                     <div>
                         <span class="inline-flex" id="task-accountuser-type">
-                            <span class="material-icons">business_center</span>Business client
+                            <span class="material-icons">security</span>Trust client
                         </span><BR>
                         <span class="uppercase" id="task-accountuser-name">
                         </span>
@@ -70,7 +70,7 @@
                     
                 </div>
             </div>
-      
+          
             <h3>Next steps</h3>
             <ul>
                 <li>If you need to submit any additional documents relating to this request, you must submit them using your case/reference number.</li>
@@ -101,8 +101,8 @@
                     document.getElementById("task-rep-name").textContent = "REPRESENTATIVE NAME";
                 }
 
-                if (taskData.accountInfo && taskData.accountInfo.name) {
-                    document.getElementById("task-accountuser-name").textContent = taskData.accountInfo.name;
+                if (taskData.deceasedInfo && taskData.deceasedInfo.name) {
+                    document.getElementById("task-accountuser-name").textContent = taskData.deceasedInfo.name;
                 }
             }
         });

@@ -169,8 +169,11 @@ class Stepper {
                     this.stepHandlers[stepNum] = new Step4Handler();
                     break;
                 case 5:
-                    this.stepHandlers[stepNum] = new Step5Handler(this);
-                break;
+                    this.stepHandlers[stepNum] = new Step5Handler();
+                    break;
+                case 6:
+                    this.stepHandlers[stepNum] = new Step6Handler(this);
+                    break;
             }
         }
     }
@@ -399,6 +402,9 @@ class Step3Handler {
 class Step4Handler {
     constructor() {
         this.q3Lightbox = new FormLightbox(document.getElementById("s4q3-lightbox"));
+
+         this.fiscalDatepicker = new DatepickerObj("s4q2-field");
+        this.windupDatepicker = new DatepickerObj("s4q3-field");
     }
 }
 class Step5Handler {
@@ -406,31 +412,29 @@ class Step5Handler {
         //this.tempData = null; // Temporary storage for lightbox data
         this.documentsTable = new TableObj("tb-upload-doc");
         this.uploadDocLightbox = new FormLightbox(document.getElementById("uploaddoc-lightbox"));
-        this.documentUploadFieldset = document.getElementById("s4q4-fieldset");
+        this.documentUploadFieldset = document.getElementById("s5q4-fieldset");
 
-        this.fiscalDatepicker = new DatepickerObj("s4q2-field");
-        this.windupDatepicker = new DatepickerObj("s4q3-field");
 
-        this.browseFileButton = document.getElementById("s4-browsebtn");
-        this.browseWindow = document.getElementById("s4-browsewind");
+        this.browseFileButton = document.getElementById("s5-browsebtn");
+        this.browseWindow = document.getElementById("s5-browsewind");
         this.fileList = document.querySelectorAll('.file-item');
         if(DataManager.getData("taskNum") === 3){
             this.fileList[0].classList.add("hidden");
         }
     
-        this.fileNameDisplay = document.getElementById("s4-filename-display");
-        this.hiddenFileInput = document.getElementById("s4-filename");
-        this.hiddenFileSize = document.getElementById("s4-size");
+        this.fileNameDisplay = document.getElementById("s5-filename-display");
+        this.hiddenFileInput = document.getElementById("s5-filename");
+        this.hiddenFileSize = document.getElementById("s5-size");
 
         
-        this.uploadMethod = document.querySelectorAll('input[name="s4q2"]');
+        this.uploadMethod = document.querySelectorAll('input[name="s5q2"]');
        
         if(!this.browseFileButton) return; 
 
         this.uploadMethod.forEach(radio => {
 
             radio.addEventListener('change', () => {
-                var uploadedDocSelected = document.querySelector('input[name="s4q1"]:checked');
+                var uploadedDocSelected = document.querySelector('input[name="s5q1"]:checked');
               
               if (uploadedDocSelected.value == 'Yes') {
               
@@ -492,10 +496,10 @@ class Step5Handler {
         // Fill form with existing row data
         this.uploadDocLightbox.populateForm(rowData);
          // Manually update filename span
-        if (rowData["s4-filename"]) {
-            const filenameDisplay = document.getElementById("s4-filename-display");
+        if (rowData["s5-filename"]) {
+            const filenameDisplay = document.getElementById("s5-filename-display");
         if (filenameDisplay) {
-            filenameDisplay.textContent = rowData["s4-filename"];
+            filenameDisplay.textContent = rowData["s5-filename"];
         }
     }
 
@@ -507,8 +511,8 @@ class Step5Handler {
         const editIndex = this.uploadDocLightbox.getEditIndex();
         
 
-        let fileSize = parseInt(formData["s4-size"], 10) || 0;
-        formData["s4-size"] = fileSize < 1024 ? `${fileSize} KB` : `${(fileSize / 1024).toFixed(2)} MB`;
+        let fileSize = parseInt(formData["s5-size"], 10) || 0;
+        formData["s5-size"] = fileSize < 1024 ? `${fileSize} KB` : `${(fileSize / 1024).toFixed(2)} MB`;
     
         if (editIndex !== null && editIndex !== undefined && editIndex !== "") {
             this.documentsTable.rows[editIndex] = formData;
@@ -524,7 +528,7 @@ class Step5Handler {
 
     calculateTotalFileSize() {
         let totalSize = this.documentsTable.rows.reduce((sum, row) => {
-            let size = parseInt(row["s4-size"], 10) || 0; // Ensure size is numeric
+            let size = parseInt(row["s5-size"], 10) || 0; // Ensure size is numeric
             return sum + size;
         }, 0);
     
@@ -543,7 +547,7 @@ class Step5Handler {
 class Step6Handler {
     constructor(stepper) {
         this.stepper = stepper;
-        this.reviewContainer = document.getElementById("s5-review-container");
+        this.reviewContainer = document.getElementById("s6-review-container");
         this.submitBtn = document.getElementById("appsubmit-btn");
         this.populateReview();
 
@@ -560,7 +564,7 @@ class Step6Handler {
             sessionStorage.setItem("racUserName", JSON.stringify(DataManager.getData("racUserName")));
         
             // Redirect to confirmation page
-            window.location.href = "confirmation.html";
+            window.location.href = "confirmation_t3.html";
         });
     }
 
@@ -664,31 +668,36 @@ class Step6Handler {
 
 
     getLabelForInput(name) {
-        let label = "";
+    let label = "";
 
-        // Try to find a corresponding label element
-        const input = document.querySelector(`[name="${name}"]`);
-        if (input) {
-            const labelElement = document.querySelector(`label[for="${input.id}"]`);
-            if (labelElement) {
-                label = labelElement.textContent.trim();
-            }
+    // Handle standard <label for="...">
+    const input = document.querySelector(`[name="${name}"]`);
+    if (input) {
+        const labelElement = document.querySelector(`label[for="${input.id}"]`);
+        if (labelElement) {
+            const cloned = labelElement.cloneNode(true);
+            // Remove help links/icons and asterisks
+            cloned.querySelectorAll('a, span, .label-ast').forEach(el => el.remove());
+            label = cloned.textContent.trim();
         }
-
-        // If it's a radio group, get the fieldset legend
-        const fieldset = document.querySelector(`fieldset [name="${name}"]`);
-        if (fieldset) {
-            const legend = fieldset.closest("fieldset").querySelector("legend");
-            if (legend) {
-                let cleaned = legend.innerHTML.replace(/<span[^>]*>.*?<\/span>/gi, '');
-                label = cleaned.trim();
-            }
-        }
-       
-        // Remove asterisks and extra spaces
-        return label.replace(/<span[^>]*>.*?<\/span>/gi, "").trim() || name; // Default to name if no label found
-   
     }
+
+    // Handle radio/checkbox inside a <fieldset>
+    const fieldset = document.querySelector(`fieldset [name="${name}"]`);
+    if (fieldset) {
+        const legend = fieldset.closest("fieldset").querySelector("legend");
+        if (legend) {
+            const cloned = legend.cloneNode(true);
+            // Remove help links/icons and asterisks
+            cloned.querySelectorAll('a, span, .label-ast').forEach(el => el.remove());
+            label = cloned.textContent.trim();
+        }
+    }
+
+    // Final cleanup: remove any leftover asterisks or whitespace
+    return label.replace(/^\*\s*/, "").trim() || name;
+}
+
     
 }
 
