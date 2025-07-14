@@ -41,7 +41,7 @@
         </header>
         <main class="stepper">
             <h1>TX19 - Asking for a clearance certificate</h1>
-            <section class="step" id="step-0">
+            <section class="step active" id="step-0">
                 <div class="step-header">
                     <div class="step-number">
                         <span class="step-icon material-icons">check</span>
@@ -65,7 +65,7 @@
                                 </li>
                             </ul>
 
-                            <p>If you have already submitted any of these documents, you do not need to re-submit them.</p>
+                            <p>If you have already submitted any of these documents, you do not need to send them again.</p>
                         </div>
                         <button class="btn btn-primary next-button" type="button">Begin</button>
                     </div>
@@ -85,7 +85,7 @@
                             <div class="required">Fields marked with asterisk (<span class="ast">*</span>) are required.</div>
                           
                             <fieldset id="s1q1-fieldset" data-radio-group>
-                                <legend class="required-label"> Has the final corporate income tax return (T2) been filed?</legend>
+                                <legend class="required-label"> Has the final corporate (T2) income tax return been filed?</legend>
                                 <div class="group">
                                     <input type="radio" id="s1q1-op1" name="s1q1" value="Yes" data-toggle="s1q2-fieldset">
                                     <label for="s1q1-op1"></label>
@@ -216,19 +216,14 @@
                             <div id="corporation-panel-container">                         
                             </div>
                             <fieldset id="s2q1-fieldset" data-radio-group>
-                                <legend class="required-label"> Are all directors Canadian residents? 
-                                    <a data-toggleLB="s2q1-lightbox">
-                                        <span class="material-icons">
-                                        help
-                                        </span>
-                                    </a>
+                                <legend class="required-label"> Are all directors Canadian residents?
                                 </legend>
                                 <div class="group">
-                                    <input type="radio" id="s2q1-op1" name="s2q1" value="Yes" data-toggle="s2q2-fieldset">
+                                    <input type="radio" id="s2q1-op1" name="s2q1" value="Yes">
                                     <label for="s2q1-op1"></label>
                                 </div>
                                 <div class="group">
-                                    <input type="radio" id="s2q1-op2" name="s2q1" value="No" data-toggle="s2q2-fieldset">
+                                    <input type="radio" id="s2q1-op2" name="s2q1" value="No">
                                     <label for="s2q1-op2"></label>
                                 </div>
                             </fieldset>
@@ -236,33 +231,7 @@
                             <button class="btn btn-secondary back-button" type="button">Back</button>
                             <button class="btn btn-primary next-button" type="button">Next</button>
                         </form>
-                        <div class="lightbox-container" id="s2q1-lightbox">
-                            <div class="lightbox">
-                                <div class="header">
-                                    <div>
-                                        <span class="material-icons">help</span>
-                                        <h3>Are all directors Canadian residents?</h3>
-                                    </div>
-                                    
-                                    <button data-closebtn class="btn-tertiary" type="button">
-                                        <span class="material-icons">clear</span>
-                                    </button>
-                                </div>
-                                <div class="lightbox-content">
-                                    Examples of tax returns that may be required:
-                                    <ul>
-                                        <li>T1 final return</li>
-                                        <li>T1 return for rights and things</li>
-                                        <li>T1 return for income from a graduated rate estate</li>
-                                        <li>T1 return for partner or proprieter</li>
-                                    </ul><br>
-                                    For more information, go to <a>What returns you need to file<span class="material-icons">open_in_new</span></a>
-                                </div>
-                                <div class="buttons">
-                                    <button class="btn-tertiary-brdr" data-closebtn type="button">Close</button>
-                                </div>
-                            </div>
-                        </div>
+                       
                     </div>
                 </div>
             </section>
@@ -323,9 +292,8 @@
                                 <label class="required-label" for="s3-lvl3-reprole">Role</label>                        
                                 <select id="s3-lvl3-reprole" name="s3-lvl3-reprole">
                                     <option value="" selected>(Select)</option>
-                                    <option value="Executor">Executor</option>
-                                    <option value="Administrator">Administrator</option>
-                                    <option value="Liquidator">Liquidator</option>
+                                    <option value="Director">Director</option>
+                                    <option value="Owner">Owner</option>
                                     <option value="Other">Other</option>
                                 </select>
                             
@@ -405,10 +373,9 @@
                                         <label class="required-label" for="s3-reprole">Role of representative</label>
                                         <select id="s3-reprole-lb" name="s3-reprole">
                                             <option value="" selected>(Select)</option>
-                                            <option value="Executor">Executor</option>
-                                            <option value="Administrator">Administrator</option>
-                                            <option value="Liquidator">Liquidator</option>
-                                            <option value="Other">Other</option>
+                                             <option value="Director">Director</option>
+                                                <option value="Owner">Owner</option>
+                                                <option value="Other">Other</option>
                                         </select>
                                        
                                         <br><br>
@@ -428,7 +395,7 @@
                 </div>
             </section>
 
-            <section class="step active" id="step-4">
+            <section class="step" id="step-4">
                 <div class="step-header">
                     <div class="step-number">
                         <span class="step-icon material-icons">check</span>
@@ -466,18 +433,24 @@
                                 <input class="" type="text" id="s4q2-field" name="s4q2" placeholder="YYYY-MM-DD">
                                 <div class="suffix">
                                     <span class="material-icons">calendar_month</span>
-                                    <div class="datepicker-popup hidden"></div>
+                                   
                                     
                                </div>
+                                <div class="datepicker-modal hidden"></div>
                             </div>
                         </fieldset>
                         <fieldset class="hidden" id="s4q3-fieldset">
-                            <label for="s4q3-field" class="required-label">Wind up date of the last filed return<br>
+                            <label for="s4q3-field" class="optional-label">Wind up date (if different from fiscal end date)<br>
                             </label>
                            
                             <div class="input-wrapper ml-16px">
-                                <input class="" type="text" id="s4q3-field" name="s4q3">
-                                <div class="suffix"><span class="material-icons">calendar_month</span></div>
+                                <input class="" type="text" id="s4q3-field" name="s4q3" placeholder="YYYY-MM-DD">
+                                <div class="suffix">
+                                    <span class="material-icons">calendar_month</span>
+                                   
+                                    
+                               </div>
+                                <div class="datepicker-modal hidden"></div>
                             </div>
                         </fieldset>
                         <br>
@@ -588,12 +561,14 @@
                         </fieldset>
                         <fieldset class="hidden" id="s5q3-fieldset">
                             <label for="s5q3-field" class="ml-16px">Provide the reference/case number(s) associated to your submission<br>
-                                <span class="optional">Separate reference/case numbers using a comma.</span>
+                                <span class="sub-label">Separate reference/case numbers using a comma.</span>
                             </label>
                             <input class="half-width" type="text" id="s5q3-field" name="s5q3">
                         </fieldset>
                         <fieldset class="ml-16px hidden" id="s5q4-fieldset" required>
-                            <legend class="required-label" for="s5q3-field">Upload documents to support your request</legend>
+                            <legend class="required-label" for="s5q3-field">Upload documents to support your request
+                                <br><span class="sub-label">Documents that have already been sent do not need to be uploaded again.</span>
+                            </legend>
                             
                             <table id="tb-upload-doc" class="table dynamic-table" cellpadding="0" cellspacing="0" required>
                                 <thead>

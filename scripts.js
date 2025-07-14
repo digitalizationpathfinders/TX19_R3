@@ -177,7 +177,6 @@ class Stepper {
 }
 class Step1Handler {
     constructor(){
-        this.q1Lightbox = new FormLightbox(document.getElementById("s1q1-lightbox"));
     }
 }
 class Step2Handler {
@@ -211,7 +210,7 @@ class Step3Handler {
     constructor() {
         this.userLevel = parseInt(DataManager.getData("userLevel")) || 2;
         this.legalReps = DataManager.getData("legalReps") || [];
-        this.deceasedAddress = DataManager.getData("deceasedInfo").address;
+        this.deceasedAddress = DataManager.getData("accountInfo").address;
 
 
         this.repPanelContainer = document.getElementById("legalrep-panel-container");
@@ -375,6 +374,9 @@ class Step4Handler {
         this.uploadDocLightbox = new FormLightbox(document.getElementById("uploaddoc-lightbox"));
         this.documentUploadFieldset = document.getElementById("s4q4-fieldset");
 
+        this.fiscalDatepicker = new DatepickerObj("s4q2-field");
+        this.windupDatepicker = new DatepickerObj("s4q3-field");
+
         this.browseFileButton = document.getElementById("s4-browsebtn");
         this.browseWindow = document.getElementById("s4-browsewind");
         this.fileList = document.querySelectorAll('.file-item');
@@ -532,10 +534,11 @@ class Step5Handler {
         this.reviewContainer.innerHTML = ""; // Clear previous content
     
         const steps = [
-            { stepNum: 1, title: "Pre-screening", storageKey: "stepData_1" },
-            { stepNum: 2, title: "Deceased individual’s information on file", storageKey: "stepData_2", labels: ["Name of deceased", "Social insurance number (SIN)", "Date of death"] },
+            { stepNum: 1, title: "Eligibility", storageKey: "stepData_1" },
+            { stepNum: 2, title: "Corporation information", storageKey: "stepData_2", labels: ["Name", "Business number", "Are all directors Canadian residents?"] },
             { stepNum: 3, title: "Representative's information", storageKey: "stepData_3" },
-            { stepNum: 4, title: "Supporting documentation", storageKey: "stepData_4" },
+            { stepNum: 4, title: "Type of clearance", storageKey: "stepData_4" },
+             { stepNum: 5, title: "Supporting documentation", storageKey: "stepData_5" },
         ];
         const accountInfo = DataManager.getData("accountInfo") || {};
         steps.forEach(({ stepNum, title, storageKey, labels }) => {
@@ -546,10 +549,13 @@ class Step5Handler {
            let formattedData = {};
            let subTableData = null; // Placeholder for subtable
 
+            if(stepNum === 1) { 
 
-           if (stepNum === 2) {
-            //delete deceasedInfo.address; // Remove address
-            data = { ...accountInfo, ...data }; // Merge deceased info first, then stepData_2 to allow stepData_2 to override if needed
+            }
+            if (stepNum === 2) {
+           
+            data = { ...accountInfo, ...data }; 
+             delete data.accountType;
            }
            if (stepNum === 3) {
                let legalReps = DataManager.getData("legalReps") || [];
@@ -560,9 +566,11 @@ class Step5Handler {
                 if(legalReps.length === 1) {
                     console.log("only 1 rep")
                     formattedData["Legal representative name"] = rep.name || "N/A";
-                    formattedData["Legal representative mailing address"] = deceasedInfo.address;
+                    formattedData["Legal representative mailing address"] = accountInfo.address;
                     formattedData[`Legal representative role`] = rep.role || "N/A";
+                    formattedData["Legal representative email address"] = rep.email || "N/A"
                     formattedData["Legal representative telephone number"] = rep.phone || "N/A";
+                   
                 }
                 else {
                     console.log("multiple reps")
@@ -574,6 +582,7 @@ class Step5Handler {
                     }
     
                     formattedData[`Legal representative ${idx} role`] = rep.role || "N/A";
+                    formattedData[`Legal representative ${idx} email address`] = rep.email || "N/A";
                     formattedData[`Legal representative ${idx} telephone number`] = rep.phone || "N/A";
                 }
                 
@@ -581,11 +590,11 @@ class Step5Handler {
                });
                console.log(formattedData)
            }
-           else if (stepNum === 4 && data["uploadedDocuments"]) {
+           else if (stepNum === 5 && data["uploadedDocuments"]) {
                subTableData = {
                    title: "Attachments",
                    headers: ["Name", "Description", "File Size"],
-                   columns: ["s4-filename", "s4-desc", "s4-size"],
+                   columns: ["s5-filename", "s5-desc", "s5-size"],
                    rows: data["uploadedDocuments"] || [] // Ensure it's always an array
                };
                delete data["uploadedDocuments"];
@@ -853,6 +862,267 @@ class TableObj {
             this.addRow(rowData, index);
         });
     }
+}
+
+class DatepickerObj {
+    constructor(inputId) {
+        this.input = document.getElementById(inputId);
+        this.wrapper = this.input.closest(".input-wrapper");
+        this.icon = this.wrapper.querySelector(".suffix");
+        this.modal = this.wrapper.querySelector(".datepicker-modal");
+
+         // Open on icon click
+        this.icon.addEventListener("click", (e) => {
+            e.stopPropagation();
+            DatepickerObj.closeAll(); // Close other open ones
+            this.open();
+        });
+
+        // Close if clicking outside
+        document.addEventListener("click", (e) => {
+            if (!this.wrapper.contains(e.target)) {
+                this.close();
+            }
+        });
+    }
+    open(){
+        const today = new Date();
+        this.selectedYear = today.getFullYear();
+        this.selectedMonth = today.getMonth();
+        this.renderDayView(this.selectedYear, this.selectedMonth);
+        this.modal.classList.remove("hidden");
+        // Prevent clicks inside the modal from closing it
+        this.modal.addEventListener("click", (e) => e.stopPropagation());
+
+        // Mark this step-content as open
+        const stepContent = this.wrapper.closest(".step-content");
+        if (stepContent) stepContent.classList.add("modal-open");
+    }
+    close(){
+        this.modal.classList.add("hidden");
+         const stepContent = this.wrapper.closest(".step-content");
+        if (stepContent) stepContent.classList.remove("modal-open");
+    }
+    
+    static closeAll() {
+        document.querySelectorAll(".datepicker-modal").forEach(modal => {
+            modal.classList.add("hidden");
+        });
+    }
+    renderDayView(year, month) {
+        this.modal.innerHTML = "";
+
+        const container = document.createElement("div");
+        container.classList.add("datepicker-grid");
+
+        // Header
+        const header = document.createElement("div");
+        header.classList.add("datepicker-header");
+
+       // Left: title + dropdown
+        const left = document.createElement("div");
+        left.classList.add("datepicker-header-left");
+
+        const title = document.createElement("button");
+        title.classList.add("datepicker-title-btn");
+        title.innerHTML = `${this.getMonthName(month)} ${year} <span class="arrow">▼</span>`;
+        title.onclick = () => this.renderYearRange(year - (year % 24));
+        left.appendChild(title);
+
+        // Right: arrows
+        const right = document.createElement("div");
+        right.classList.add("datepicker-header-right");
+
+        const prev = document.createElement("span");
+        prev.innerHTML = "&lsaquo;";
+        prev.classList.add("datepicker-nav");
+        prev.onclick = () => {
+        const newMonth = month === 0 ? 11 : month - 1;
+        const newYear = month === 0 ? year - 1 : year;
+        this.selectedYear = newYear;
+        this.selectedMonth = newMonth;
+        this.renderDayView(newYear, newMonth);
+        };
+
+        const next = document.createElement("span");
+        next.innerHTML = "&rsaquo;";
+        next.classList.add("datepicker-nav");
+        next.onclick = () => {
+        const newMonth = month === 11 ? 0 : month + 1;
+        const newYear = month === 11 ? year + 1 : year;
+        this.selectedYear = newYear;
+        this.selectedMonth = newMonth;
+        this.renderDayView(newYear, newMonth);
+        };
+
+        right.appendChild(prev);
+        right.appendChild(next);
+
+        // Final header assembly
+        header.appendChild(left);
+        header.appendChild(right);
+        container.appendChild(header);
+
+        // Weekday headers
+        const weekdays = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
+        const weekdayRow = document.createElement("div");
+        weekdayRow.classList.add("day-row");
+        weekdays.forEach(d => {
+            const day = document.createElement("div");
+            day.classList.add("day-name");
+            day.textContent = d;
+            weekdayRow.appendChild(day);
+        });
+        container.appendChild(weekdayRow);
+
+        // Day cells
+        const grid = document.createElement("div");
+        grid.classList.add("day-grid");
+
+        const firstDay = new Date(year, month, 1).getDay();
+        const totalDays = new Date(year, month + 1, 0).getDate();
+
+        // Empty slots
+        for (let i = 0; i < firstDay; i++) {
+            const empty = document.createElement("div");
+            empty.classList.add("day-cell", "empty");
+            grid.appendChild(empty);
+        }
+
+        for (let i = 1; i <= totalDays; i++) {
+            const cell = document.createElement("div");
+            cell.classList.add("day-cell");
+            cell.textContent = i;
+            cell.onclick = () => this.selectDate(year, month, i);
+            grid.appendChild(cell);
+        }
+
+        container.appendChild(grid);
+        this.modal.appendChild(container);
+    }
+
+    renderYearRange(startYear = this.getCurrent24Start()) {
+        this.modal.innerHTML = ""; // Clear modal
+
+        const container = document.createElement("div");
+        container.classList.add("datepicker-grid");
+
+        // Header
+        const header = document.createElement("div");
+        header.classList.add("datepicker-header");
+
+        const prev = document.createElement("span");
+        prev.innerHTML = "&lsaquo;";
+        prev.classList.add("datepicker-nav");
+        prev.onclick = () => this.renderYearRange(startYearAdjusted - 24);
+
+        const title = document.createElement("div");
+        title.classList.add("datepicker-title");
+        title.textContent = `${startYear} - ${startYear + 23}`;
+
+        const next = document.createElement("span");
+        next.innerHTML = "&rsaquo;";
+        next.classList.add("datepicker-nav");
+        
+        //next.onclick = () => this.renderYearRange(startYear + 24);
+        next.style.visibility = "hidden";
+        header.appendChild(prev);
+        header.appendChild(title);
+        header.appendChild(next);
+        container.appendChild(header);
+
+        // Year grid
+        const grid = document.createElement("div");
+        grid.classList.add("year-grid");
+
+        const currentYear = new Date().getFullYear();
+        const endYear = currentYear;
+        const startYearAdjusted = endYear - 23;
+
+        for (let i = 0; i < 24; i++) {
+            const year = startYearAdjusted + i;
+            const cell = document.createElement("div");
+            cell.classList.add("datepicker-cell");
+            cell.textContent = year;
+
+            // Only enable if it's <= current year
+            cell.classList.add("clickable");
+            cell.onclick = () => this.handleYearClick(year);
+
+            grid.appendChild(cell);
+        }
+        title.textContent = `${startYearAdjusted} - ${endYear}`;
+
+
+        container.appendChild(grid);
+        this.modal.appendChild(container);
+    }
+
+    renderMonthView(year) {
+    this.modal.innerHTML = ""; // Clear modal
+
+    const container = document.createElement("div");
+    container.classList.add("datepicker-grid");
+
+    // Header with back arrow and year label
+    const header = document.createElement("div");
+    header.classList.add("datepicker-header");
+
+    const back = document.createElement("span");
+    back.innerHTML = "&lsaquo;";
+    back.classList.add("datepicker-nav");
+    back.onclick = () => this.renderYearRange(this.getCurrent24Start(year));
+
+    const title = document.createElement("div");
+    title.classList.add("datepicker-title");
+    title.textContent = year;
+
+    header.appendChild(back);
+    header.appendChild(title);
+    container.appendChild(header);
+
+    // Month grid
+    const grid = document.createElement("div");
+    grid.classList.add("month-grid");
+
+    const monthNames = ["Jan", "Feb", "Mar", "Apr", "May", "Jun",
+                        "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+
+    monthNames.forEach((name, index) => {
+        const cell = document.createElement("div");
+        cell.classList.add("datepicker-cell");
+        cell.textContent = name;
+        cell.onclick = () => {
+            this.selectedMonth = index;
+            this.renderDayView(year, index);
+        };
+        grid.appendChild(cell);
+    });
+
+    container.appendChild(grid);
+    this.modal.appendChild(container);
+    }
+
+    getCurrent24Start(current = new Date().getFullYear()) {
+        return current - 23;
+    }
+    handleYearClick(year) {
+        this.selectedYear = year;
+        this.renderMonthView(year); // Call month view after picking a year
+    }
+    selectDate(year, month, day) {
+        const formatted = `${year}-${String(month + 1).padStart(2, '0')}-${String(day).padStart(2, '0')}`;
+        this.input.value = formatted;
+        this.modal.classList.add("hidden");
+    }
+
+    getMonthName(index) {
+        return ["January", "February", "March", "April", "May", "June",
+          "July", "August", "September", "October", "November", "December"][index];
+    }
+
+
+
 }
 
 class DataManager {
