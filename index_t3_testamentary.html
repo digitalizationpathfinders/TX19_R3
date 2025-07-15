@@ -120,7 +120,6 @@
                                 
                             </fieldset>
            
-         
                             
                             <fieldset id="s1q2-fieldset" class="hidden">
                                 <legend class="required-label"> Select the inter vivos trust.</legend>
@@ -305,21 +304,98 @@
                             <div class="required">Fields marked with asterisk (<span class="ast">*</span>) are required.</div>
                             <div id="trust-panel-container">                         
                             </div>
-                            <fieldset id="s1q1-fieldset">
-                                <legend class="required-label" for="s1q1-field">Social insurance number
-                                                                </legend>
-                                <input class="half-width" type="text" id="s5q3-field" name="s5q3">
+
+                            <fieldset id="s2q1-fieldset">
+                                <legend class="required-label" for="s2q1-field">Social insurance number</legend>
+                                <input class="half-width" type="text" id="s2q1-field" name="s2q1">
                             </fieldset>
-                            <fieldset id="s2q1-fieldset" data-radio-group>
+
+                            <fieldset id="s2q2-fieldset" required>
+                            <label for="s2q2-field" class="required-label">Date of death
+                            </label>
+                            <div class="input-wrapper ml-16px">
+                                <input type="text" id="s2q2-field" name="s2q2" placeholder="YYYY-MM-DD">
+                                <div class="suffix">
+                                    <span class="material-icons">calendar_month</span>
+                               </div>
+                                <div class="datepicker-modal hidden"></div>
+                            </div>
+                            </fieldset>
+
+                            <fieldset id="s2q3-fieldset" data-radio-group>
+                                <legend class="required-label"> Did the deceased individual have a will?</legend>
+                                <div class="group">
+                                    <input type="radio" id="s2q3-op1" name="s2q3" value="Yes" data-toggle="s2q4-fieldset">
+                                    <label for="s2q3-op1"></label>
+                                </div>
+                                <div class="group">
+                                    <input type="radio" id="s2q3-op2" name="s2q3" value="No" data-toggle="s2q4-fieldset">
+                                    <label for="s2q3-op2"></label>
+                                </div>
+                            </fieldset>
+
+                            <fieldset id="s2q4-fieldset" class="hidden" data-radio-group>
+                                <legend class="required-label"> What is the estimated total value of the deceased individual's assets?<br><span class="sub-label">Assets may include bank accounts, investment accounts, shares, real estate, etc.</span></legend>
+                                <div class="group">
+                                    <input type="radio" id="s2q4-op1" name="s2q4" value="$0 - $99,999" data-toggle="s2q5-fieldset">
+                                    <label for="s2q4-op1"></label>
+                                </div>
+                                <div class="group">
+                                    <input type="radio" id="s2q4-op2" name="s2q4" value="$100,000 - $499,999" data-toggle="s2q5-fieldset">
+                                    <label for="s2q4-op2"></label>
+                                </div>
+                                <div class="group">
+                                    <input type="radio" id="s2q4-op3" name="s2q4" value="$500, 000 - $999,999" data-toggle="s2q5-fieldset">
+                                    <label for="s2q4-op3"></label>
+                                </div>
+                                <div class="group">
+                                    <input type="radio" id="s2q4-op4" name="s2q4" value="$1,000,000 or more" data-toggle="s2q5-fieldset">
+                                    <label for="s2q4-op4"></label>
+                                </div>
+                            </fieldset>
+
+                            <fieldset id="s2q5-fieldset" class="hidden" data-radio-group required>
+                                <legend class="required-label"> Is there any real estate other than the primary residence?</legend>
+                                <div class="group">
+                                    <input type="radio" id="s2q5-op1" name="s2q5" value="Yes" data-toggle="s2q6-fieldset">
+                                    <label for="s2q5-op1"></label>
+                                </div>
+                                <div class="group">
+                                    <input type="radio" id="s2q5-op2" name="s2q5" value="No" data-toggle="s2q6-fieldset">
+                                    <label for="s2q5-op2"></label>
+                                </div>
+                            </fieldset>
+
+                            <fieldset id="s2q6-fieldset" class="hidden" data-radio-group required>
+                                <legend class="required-label"> What is the estimated total value of the deceased individual's real estate (including the primary residence)?<br><span class="sub-label">Real estate may include cottages, land, rental properties, etc.</span></legend>
+                                <div class="group">
+                                    <input type="radio" id="s2q6-op1" name="s2q6" value="$0 - $99,999" data-toggle="s2q7-fieldset">
+                                    <label for="s2q6-op1"></label>
+                                </div>
+                                <div class="group">
+                                    <input type="radio" id="s2q6-op2" name="s2q6" value="$100,000 - $499,999" data-toggle="s2q7-fieldset">
+                                    <label for="s2q6-op2"></label>
+                                </div>
+                                <div class="group">
+                                    <input type="radio" id="s2q6-op3" name="s2q6" value="$500, 000 - $999,999" data-toggle="s2q7-fieldset">
+                                    <label for="s2q6-op3"></label>
+                                </div>
+                                <div class="group">
+                                    <input type="radio" id="s2q6-op4" name="s2q6" value="$1,000,000 or more" data-toggle="s2q7-fieldset">
+                                    <label for="s2q6-op4"></label>
+                                </div>
+                            </fieldset>
+                           
+                            <fieldset id="s2q7-fieldset" class="hidden" data-radio-group>
                                 <legend class="required-label"> Are all beneficiaries Canadian residents?
                                 </legend>
                                 <div class="group">
-                                    <input type="radio" id="s2q1-op1" name="s2q1" value="Yes">
-                                    <label for="s2q1-op1"></label>
+                                    <input type="radio" id="s2q7-op1" name="s2q7" value="Yes">
+                                    <label for="s2q7-op1"></label>
                                 </div>
                                 <div class="group">
-                                    <input type="radio" id="s2q1-op2" name="s2q1" value="No">
-                                    <label for="s2q1-op2"></label>
+                                    <input type="radio" id="s2q7-op2" name="s2q7" value="No">
+                                    <label for="s2q7-op2"></label>
                                 </div>
                             </fieldset>
                            
@@ -392,7 +468,7 @@
                             
                             </fieldset>
                             <fieldset id="s3q1-fieldset" data-radio-group>
-                                <legend class="required-label"> Are there any other legal representatives associated to this account?<br><span class="sub-label">For example, a co-trustee, etc.   </span></legend>
+                                <legend class="required-label"> Are there any other legal representatives associated to this account?<br><span class="sub-label">For example, a co-trustee, co-executor, co-liquidator, co-administrator, etc.   </span></legend>
                                 <div class="group">
                                     <input type="radio" id="s3q1-op1" name="s3q1" value="Yes" data-toggle="s3q2-fieldset">
                                     <label for="s3q1-op1"></label>
@@ -598,9 +674,9 @@
                         <div>
                             <strong>Documents you need to provide:</strong>
                             <ul>
-                                <li>A copy of the trust agreement</li>
-                                <li>A detailed list of all assets that were held by the trust</li>
-                                <li>A detailed statement of asset distribution on wind up (including beneficiaries)</li>
+                                <li>Taxpayer's will (if no will exists, an official document that names the legal representative)</li>
+                                <li>List of assets</li>
+                                <li>Statement of distribution of assets</li>
                 
                             </ul>
                         </div>
@@ -753,6 +829,6 @@
                 </div>
             </section>
         </main>
-        <script src="scripts_t3.js"></script>
+        <script src="scripts_t3_testamentary.js"></script>
     </body>
 </html>
