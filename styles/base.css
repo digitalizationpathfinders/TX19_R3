@@ -181,13 +181,19 @@ header {
   display: flex;
 }
 
+
 .portal-branding div:first-of-type{
   padding-right:12px;
   border-right:1px solid #fff;
 }
 .portal-branding div:nth-of-type(2){
   padding-left:12px;
+  flex-direction: column;
+  
 }
+
+
+
 .portal-branding div:last-of-type{
   padding-left:12px;
   font-size:14px;
