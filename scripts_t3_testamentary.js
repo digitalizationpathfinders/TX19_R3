@@ -419,9 +419,7 @@ class Step5Handler {
         this.browseFileButton = document.getElementById("s5-browsebtn");
         this.browseWindow = document.getElementById("s5-browsewind");
         this.fileList = document.querySelectorAll('.file-item');
-        if(DataManager.getData("taskNum") === 3){
-            this.fileList[0].classList.add("hidden");
-        }
+   
     
         this.fileNameDisplay = document.getElementById("s5-filename-display");
         this.hiddenFileInput = document.getElementById("s5-filename");

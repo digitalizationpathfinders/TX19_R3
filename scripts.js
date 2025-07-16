@@ -246,7 +246,7 @@ class Step3Handler {
             this.repsTableFieldset.classList.remove("hidden");
 
             const label = this.repsTableFieldset.querySelector('label');
-            label.childNodes[1].nodeValue = "Provide information for the legal representative(s) of the deceased individual.";
+            label.childNodes[1].nodeValue = "Provide information for the legal representative(s) of the corporation.";
             
             this.mailingAlert.classList.add("hidden");
             this.legalRepInfoFieldset.classList.add("hidden");
