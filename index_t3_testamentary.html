@@ -29,9 +29,7 @@
                         <span class="uppercase" id="task-accountuser-name">
                         </span>
                     </div>
-                    <div>
-                        <span class="material-icons">check_circle</span>Client has full <span id="portal-type"></span> access.</div>
-                </div>
+                  
                 <div class="inline-flex">
                     <span class="material-icons">account_circle</span>
                     <span class="uppercase" id="task-rep-name"></span>
@@ -73,7 +71,7 @@
                                 </li>
                         
                             </ul>
-                             <strong>For a testamentary trust:</strong>
+                             <strong>For other types of trust:</strong>
                             <ul>
                                 <li><strong>Trust agreement:</strong> A copy of the complete trust agreement including any amendments or documents for the trust</li>
                           
@@ -122,7 +120,7 @@
            
                             
                             <fieldset id="s1q2-fieldset" class="hidden">
-                                <legend class="required-label"> Select the inter vivos trust.</legend>
+                                <legend class="required-label"> Select the type of inter vivos trust.</legend>
                                                      
                                 <select id="s1q2-dropdown" name="s1q2-dropdown" data-toggle="s1q4-fieldset">
                                     <option value="" selected>(Select)</option>
@@ -138,7 +136,7 @@
                             </fieldset>
 
                             <fieldset id="s1q3-fieldset" class="hidden">
-                                <legend class="required-label"> Select the testamentary trust.</legend>
+                                <legend class="required-label"> Select the type of testamentary trust.</legend>
                                                      
                                 <select id="s1q3-dropdown" name="s1q3-dropdown" data-toggle="s1q4-fieldset">
                                     <option value="" selected>(Select)</option>
@@ -361,7 +359,7 @@
                                     <label for="s2q5-op1"></label>
                                 </div>
                                 <div class="group">
-                                    <input type="radio" id="s2q5-op2" name="s2q5" value="No" data-toggle="s2q6-fieldset">
+                                    <input type="radio" id="s2q5-op2" name="s2q5" value="No" data-toggle="s2q7-fieldset">
                                     <label for="s2q5-op2"></label>
                                 </div>
                             </fieldset>
@@ -722,7 +720,15 @@
                             <input class="half-width" type="text" id="s5q3-field" name="s5q3">
                         </fieldset>
                         <fieldset class="ml-16px hidden" id="s5q4-fieldset" required>
-                            <legend class="required-label" for="s5q3-field">Upload documents to support your request
+                            <legend id="docreq-label" class="required-label" for="s5q3-field">Upload documents to support your request
+                                <br><span class="sub-label">Documents that have already been sent do not need to be uploaded again.</span>
+                            </legend>
+
+                            <legend id="docrem-label" class="hidden required-label" for="s5q4-field">Upload the remaining documents to support your request
+                                <br><span class="sub-label">Documents that have already been sent do not need to be uploaded again.</span>
+                            </legend>
+                            
+                            <legend id="docopt-label" class="hidden" for="s5q4-field">Upload any additional documents to support your request
                                 <br><span class="sub-label">Documents that have already been sent do not need to be uploaded again.</span>
                             </legend>
                             

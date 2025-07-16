@@ -29,9 +29,7 @@
                         <span class="uppercase" id="task-accountuser-name">
                         </span>
                     </div>
-                    <div>
-                        <span class="material-icons">check_circle</span>Client has full <span id="portal-type"></span> access.</div>
-                </div>
+                   
                 <div class="inline-flex">
                     <span class="material-icons">account_circle</span>
                     <span class="uppercase" id="task-rep-name"></span>
@@ -509,7 +507,7 @@
                             <legend class="required-label">
                                 How were the documents submitted?</legend>
                             <div class="group">
-                                <input type="radio" id="s5q2-op1" name="s5q2" value="Mail or fax" data-toggle="s5q3-fieldset">
+                                <input type="radio" id="s5q2-op1" name="s5q2" value="Mail or fax" data-toggle="s5q3-fieldset,s5q4-fieldset">
                                 <label for="s5q2-op1"></label>
                             </div>
                             <div class="group">
@@ -527,8 +525,17 @@
                             </label>
                             <input class="half-width" type="text" id="s5q3-field" name="s5q3">
                         </fieldset>
+
                         <fieldset class="ml-16px hidden" id="s5q4-fieldset" required>
-                            <legend class="required-label" for="s5q3-field">Upload documents to support your request
+                            <legend id="docreq-label" class="required-label" for="s5q4-field">Upload documents to support your request
+                                <br><span class="sub-label">Documents that have already been sent do not need to be uploaded again.</span>
+                            </legend>
+
+                            <legend id="docrem-label" class="hidden required-label" for="s5q4-field">Upload the remaining documents to support your request
+                                <br><span class="sub-label">Documents that have already been sent do not need to be uploaded again.</span>
+                            </legend>
+
+                            <legend id="docopt-label" class="hidden" for="s5q4-field">Upload any additional documents to support your request
                                 <br><span class="sub-label">Documents that have already been sent do not need to be uploaded again.</span>
                             </legend>
                             

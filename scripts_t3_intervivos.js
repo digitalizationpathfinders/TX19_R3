@@ -122,7 +122,7 @@ class Stepper {
                 handler.updateSingleLevel3Rep();
             }
         }
-        if (stepNum === 4) {
+        if (stepNum === 5) {
             let step4Handler = this.stepHandlers[stepNum]; 
             if (step4Handler && step4Handler.documentsTable) {
                 dataObj["uploadedDocuments"] = step4Handler.documentsTable.rows;
@@ -409,7 +409,7 @@ class Step4Handler {
 }
 class Step5Handler {
     constructor() {
-        //this.tempData = null; // Temporary storage for lightbox data
+    
         this.documentsTable = new TableObj("tb-upload-doc");
         this.uploadDocLightbox = new FormLightbox(document.getElementById("uploaddoc-lightbox"));
         this.documentUploadFieldset = document.getElementById("s5q4-fieldset");
@@ -426,31 +426,25 @@ class Step5Handler {
         this.hiddenFileInput = document.getElementById("s5-filename");
         this.hiddenFileSize = document.getElementById("s5-size");
 
-        
+        this.uploadedDocSelected = document.querySelectorAll('input[name="s5q1"]');
         this.uploadMethod = document.querySelectorAll('input[name="s5q2"]');
        
         if(!this.browseFileButton) return; 
 
-        this.uploadMethod.forEach(radio => {
-
+        this.uploadedDocSelected.forEach(radio => {
+            radio.addEventListener('click', () => {
+                this.updateDocTableLabel(radio.id);
+            });
             radio.addEventListener('change', () => {
-                var uploadedDocSelected = document.querySelector('input[name="s5q1"]:checked');
-              
-              if (uploadedDocSelected.value == 'Yes') {
-              
-                this.documentUploadFieldset.classList.add('hidden');
-              } else {
-                this.documentUploadFieldset.classList.remove('hidden');
-              }
+                this.updateDocTableLabel(radio.id);
             });
           });
        
 
         this.browseFileButton.addEventListener("click", () => {
             this.browseWindow.classList.remove('hidden');
-            //this.selectFile();
         });
-       this.fileList.forEach((file) => {
+        this.fileList.forEach((file) => {
             file.addEventListener('click', () =>{
                 this.selectFile(file);
                 this.browseWindow.classList.add('hidden');
@@ -477,6 +471,30 @@ class Step5Handler {
         
 
         this.calculateTotalFileSize();
+    }
+
+    updateDocTableLabel(radioID){
+        var reqLabel = document.getElementById("docreq-label");
+        var remLabel = document.getElementById("docrem-label");
+        var optLabel = document.getElementById("docopt-label");
+
+        if (radioID == 's5q1-op1') {
+               
+            reqLabel.classList.add('hidden');
+            remLabel.classList.add('hidden');
+            optLabel.classList.remove('hidden');
+     
+        }
+        else if(radioID == 's5q1-op2') {
+            reqLabel.classList.add('hidden');
+            remLabel.classList.remove('hidden');
+            optLabel.classList.add('hidden');
+        } 
+        else {
+            reqLabel.classList.remove('hidden');
+            remLabel.classList.add('hidden');
+            optLabel.classList.add('hidden');
+        }
     }
     selectFile(file){
         
@@ -628,6 +646,7 @@ class Step6Handler {
                });
                console.log(formattedData)
            }
+
            else if (stepNum === 5 && data["uploadedDocuments"]) {
                subTableData = {
                    title: "Attachments",
@@ -635,6 +654,7 @@ class Step6Handler {
                    columns: ["s5-filename", "s5-desc", "s5-size"],
                    rows: data["uploadedDocuments"] || [] // Ensure it's always an array
                };
+               
                delete data["uploadedDocuments"];
            }
 
