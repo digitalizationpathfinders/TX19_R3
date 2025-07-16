@@ -6,7 +6,8 @@ class Stepper {
 
         this.stepHandlers = {}; // Store step instances
         this.updateStepNumbers();
-        this.customStepCode(this.steps.indexOf(this.activeStep))
+        this.customStepCode(this.steps.indexOf(this.activeStep));
+
         
     }
 
