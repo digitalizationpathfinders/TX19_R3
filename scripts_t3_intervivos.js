@@ -610,8 +610,8 @@ class Step6Handler {
             }
             if (stepNum === 2) {
            
-            data = { ...accountInfo, ...data }; 
-             delete data.accountType;
+                data = { ...accountInfo, ...data }; 
+                delete data.accountType;
            }
            if (stepNum === 3) {
                let legalReps = DataManager.getData("legalReps") || [];
