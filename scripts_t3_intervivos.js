@@ -591,7 +591,7 @@ class Step6Handler {
     
         const steps = [
             { stepNum: 1, title: "Eligibility", storageKey: "stepData_1" },
-            { stepNum: 2, title: "Corporation information", storageKey: "stepData_2", labels: ["Name", "Business number", "Are all directors Canadian residents?"] },
+            { stepNum: 2, title: "Trust information", storageKey: "stepData_2", labels: ["Name", "Trust account number", "Are all directors Canadian residents?"] },
             { stepNum: 3, title: "Representative's information", storageKey: "stepData_3" },
             { stepNum: 4, title: "Type of clearance", storageKey: "stepData_4" },
              { stepNum: 5, title: "Supporting documentation", storageKey: "stepData_5" },
